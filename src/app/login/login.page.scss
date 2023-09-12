@@ -1,0 +1,44 @@
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6em;
+  }
+
+.Titulo{
+  color: #000000;
+  font-family: Arial,sans-serif;
+  margin-left: 0.4em;
+  font-size: 4rem; 
+  }
+
+.principal {
+  margin-top: 5em;
+}
+
+.custom-background {
+  background-color: #f0f0f0 !important;
+}
+
+.card {
+  padding: 1em;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+.ventana {
+  color: #f0f0f0;
+  padding: 1em;
+  border-radius: 20px;
+  margin: 4em;
+}
+
+.Recuperar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2em;
+}
+
