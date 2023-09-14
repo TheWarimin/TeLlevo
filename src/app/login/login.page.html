@@ -35,6 +35,8 @@
         <ion-button class="ingresar" (click)="enviar()">Ingresar</ion-button>
         <ion-button class="crear" (click)="validacion()">Crea tu cuenta</ion-button>
         <ion-button id="open-modal" expand="block">Restablecer contraseña</ion-button>
+        <br>
+        <ion-label class="alerta" color="primary">{{alerta}}</ion-label>
 
     <ion-modal #modal trigger="open-modal">
       <ng-template>
@@ -63,4 +65,7 @@
       </div>
     </div>
   </div>
+  <br>
+  <br>
+  <ion-button class="gira" (click)="girarElemento()">gira</ion-button>
 </ion-content>

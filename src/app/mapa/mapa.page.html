@@ -5,7 +5,7 @@
         <ion-title>mapa</ion-title>
       </div>
       <div class="usuar">
-        <ion-label>Usuario: {{user.usuario}}</ion-label>
+        <ion-label>Bienvenido: {{user.usuario}}</ion-label>
       </div>
       <div class="btnmenu">
         <button mat-icon-button [matMenuTriggerFor]="menu" color="primary">
@@ -15,10 +15,24 @@
     </div>
   </ion-toolbar>
 </ion-header>
-
+<!-- con la extencion de ionic de vs funciona bien-->
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>perfil</button>
-  <button mat-menu-item>configuracion</button>
-  <button mat-menu-item (click)="goTologin()">cerrar sesion</button>
+  <button mat-menu-item>
+    <mat-icon>account_circle</mat-icon>
+    <span>Perfil</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>build</mat-icon>
+    <span>Configuracion</span>
+  </button>
+  <button mat-menu-item (click)="goTologin()">
+    <mat-icon>highlight_off</mat-icon>
+    <span>cerrar sesion</span>
+  </button>
 </mat-menu>
 
+<ion-img
+  src="https://i.blogs.es/b79aa2/indicador/450_1000.jpg"
+  alt="santiago claramente"
+></ion-img>
+<!-- 380x836 para que se vea decente-->

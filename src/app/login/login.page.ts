@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router , NavigationExtras } from '@angular/router';
-import { AnimationController } from '@ionic/angular';
+import { AnimationController, Animation  } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,24 @@ export class LoginPage implements OnInit {
 
   constructor(private router: Router, private animationCtrl: AnimationController) {}
 
-  public mensaje = ""
+  public alerta = ""
+
+  async girarElemento() {
+    const elemento = document.querySelector('.contenedor');
+
+    if (elemento !== null) {
+      const animation: Animation = this.animationCtrl.create()
+        .addElement(elemento)
+        .duration(1000)
+        .easing('ease-in-out')
+        .fromTo('transform', 'rotate(0deg)', 'rotate(360deg)');
+
+      await animation.play();
+    } else {
+      console.error("El elemento '.contenedor' no se encontró en el DOM.");
+      // Puedes manejar el caso en el que el elemento no existe aquí.
+    }
+  }
 
   async goTomapa() {
     if (this.validacion()) {
@@ -44,7 +61,7 @@ export class LoginPage implements OnInit {
       }
       this.router.navigate(['/mapa'], navigationExtras);
     } else {
-      this.mensaje = "ingrese sus datos";
+      this.alerta = "ingrese sus datos";
     }
   }
 
