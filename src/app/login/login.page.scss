@@ -43,9 +43,8 @@
 }
 
 .gira {
-  margin-top: 30%;
-  margin-left: 42%;
-  flex-direction: column;
+  display:grid;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 }

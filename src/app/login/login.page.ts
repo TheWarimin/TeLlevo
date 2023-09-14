@@ -67,13 +67,14 @@ export class LoginPage implements OnInit {
 
   validacion(): boolean {
     if (this.user.usuario.length < 6) {
-      alert("El usuario debe tener al menos 6 caracteres.");
+      this.alerta="debe tener al menos 6 caracteres.";
       return false;
     }
     if (this.user.usuario === "" || this.user.password === "") {
-      alert("Por favor, complete ambos campos.");
+      this.alerta="Por favor, complete ambos campos.";
       return false;
     }
+    this.alerta="Registro exitoso";
     return true;
   }
 
