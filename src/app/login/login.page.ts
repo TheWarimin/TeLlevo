@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router , NavigationExtras } from '@angular/router';
 import { AnimationController } from '@ionic/angular';
 
 @Component({
@@ -16,6 +16,8 @@ export class LoginPage implements OnInit {
 
   constructor(private router: Router, private animationCtrl: AnimationController) {}
 
+  public mensaje = ""
+
   async goTomapa() {
     if (this.validacion()) {
       const loginPageElement = document.querySelector('.contenedor') as HTMLElement;
@@ -23,15 +25,26 @@ export class LoginPage implements OnInit {
       if (loginPageElement) {
         const enterAnimation = this.animationCtrl.create()
           .addElement(loginPageElement)
-          .duration(1000)
+          .duration(600)
           .fromTo('opacity', '1', '0');
 
         await enterAnimation.play();
         this.router.navigate(['/mapa'], { state: { user: this.user } });
-        loginPageElement.style.opacity = '1'; 
+        loginPageElement.style.opacity = '0'; 
       } else {
-        console.error("No se encontró ningún elemento con la clase '.login-page-element'");
+        console.error("No se encontró ningún elemento con la clase '.contenedor'");
       }
+    }
+  }
+
+  enviar() {
+    if (this.user.usuario != "") {
+      let navigationExtras: NavigationExtras = {
+        state: { user: this.user }
+      }
+      this.router.navigate(['/mapa'], navigationExtras);
+    } else {
+      this.mensaje = "ingrese sus datos";
     }
   }
 

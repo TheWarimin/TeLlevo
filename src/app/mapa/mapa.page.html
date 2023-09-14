@@ -4,6 +4,9 @@
       <div class="titu">
         <ion-title>mapa</ion-title>
       </div>
+      <div class="usuar">
+        <ion-label>Usuario: {{user.usuario}}</ion-label>
+      </div>
       <div class="btnmenu">
         <button mat-icon-button [matMenuTriggerFor]="menu" color="primary">
           <mat-icon>menu</mat-icon>
@@ -14,6 +17,8 @@
 </ion-header>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>Item 1</button>
-  <button mat-menu-item>Item 2</button>
+  <button mat-menu-item>perfil</button>
+  <button mat-menu-item>configuracion</button>
+  <button mat-menu-item (click)="goTologin()">cerrar sesion</button>
 </mat-menu>
+
