@@ -17,6 +17,9 @@ export class MapaPage implements OnInit {
     goTologin(){
       this.router.navigate(['/login'], { state: { user: this.user } });
     }
+    goTomapa(){
+      this.router.navigate(['/mapa'], { state: { user: this.user } });
+    }
   ngOnInit() {
     this.activatedRouter.queryParams.subscribe(() => {
       let state = this.router.getCurrentNavigation()?.extras.state;

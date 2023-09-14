@@ -31,7 +31,6 @@ export class LoginPage implements OnInit {
       await animation.play();
     } else {
       console.error("El elemento '.contenedor' no se encontró en el DOM.");
-      // Puedes manejar el caso en el que el elemento no existe aquí.
     }
   }
 
