@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mapa.page.scss'],
 })
 export class MapaPage implements OnInit {
-
+  showFiller = false;
   constructor() { }
 
   ngOnInit() {

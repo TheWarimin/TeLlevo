@@ -35,6 +35,7 @@
         <ion-button class="ingresar" (click)="goTomapa()">Ingresar</ion-button>
         <ion-button class="crear" (click)="validacion()">Crea tu cuenta</ion-button>
         <ion-button id="open-modal" expand="block">Restablecer contraseña</ion-button>
+
     <ion-modal #modal trigger="open-modal">
       <ng-template>
         <ion-content>
@@ -52,7 +53,8 @@
                       <div slot="label">Usuario</div>
                     </ion-input>
                    </ion-item>
-                  <ion-button class="Recuperar" (click)="goTomapa()">Recuperar</ion-button>
+                   <!-- por ahora modal.dismiss()-->
+                  <ion-button class="Recuperar" (click)="modal.dismiss()">Recuperar</ion-button>
                 </div>
               </ion-content>
             </ng-template>
