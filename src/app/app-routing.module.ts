@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
     path: 'home',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
@@ -17,7 +19,12 @@ const routes: Routes = [
   },
   {
     path: 'mapa',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./mapa/mapa.module').then(m => m.MapaPageModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./error/error.module').then( m => m.ErrorPageModule)
   },
 ];
 

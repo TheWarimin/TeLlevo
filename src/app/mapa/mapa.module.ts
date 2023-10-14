@@ -11,6 +11,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import {NgIf, NgFor} from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 
 @NgModule({
   imports: [
@@ -24,6 +26,7 @@ import {NgIf, NgFor} from '@angular/common';
     MatSidenavModule,
     MapaPageRoutingModule,
     MatMenuModule,
+    MatFormFieldModule,
     NgIf,
     NgFor,
   ],

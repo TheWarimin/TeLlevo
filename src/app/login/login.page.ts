@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router , NavigationExtras } from '@angular/router';
 import { AnimationController, Animation  } from '@ionic/angular';
+import { ServiciosService } from '../servicios/servicios.service';
+import { AuthGuard } from '../guards/auth.guard';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +15,11 @@ export class LoginPage implements OnInit {
     usuario: "",
     password: ""
   };
+  newPassword: string = '';
+  constructor(private router: Router, private animationCtrl: AnimationController, private auth: ServiciosService, private authGuard: AuthGuard) {}
 
-  constructor(private router: Router, private animationCtrl: AnimationController) {}
-
-  public alerta = ""
+  public alerta = "";
+  public model_alerta = "";
 
   async girarElemento() {
     const elemento = document.querySelector('.contenedor');
@@ -54,7 +57,8 @@ export class LoginPage implements OnInit {
   }
 
   enviar() {
-    if (this.user.usuario != "") {
+    this.auth.login(this.user.usuario, this.user.password).then(() => {
+    if (this.auth.validado) {
       let navigationExtras: NavigationExtras = {
         state: { user: this.user }
       }
@@ -62,20 +66,34 @@ export class LoginPage implements OnInit {
     } else {
       this.alerta = "ingrese sus datos";
     }
+  });
   }
 
   validacion(): boolean {
-    if (this.user.usuario.length < 6) {
-      this.alerta="debe tener al menos 6 caracteres.";
-      return false;
-    }
     if (this.user.usuario === "" || this.user.password === "") {
-      this.alerta="Por favor, complete ambos campos.";
+      this.alerta="Por favor, complete ambos campos";
       return false;
     }
     this.alerta="Registro exitoso";
+    this.auth.register(this.user.usuario, this.user.password);
     return true;
   }
+
+  async changePassword() {
+    const username = this.user.usuario;
+    const newPassword = this.newPassword;
+    if (username && newPassword) {
+      const success = await this.auth.changePassword(username, newPassword);
+      if (success) {
+        this.model_alerta="Contraseña cambiada con exito";
+      } else {
+        this.model_alerta="Error cambiando contraseña";
+      }
+    } else {
+      this.model_alerta="Ingrese tanto usuario como nueva contraseña";
+    }
+  }
+  
 
   ngOnInit() {}
 }
