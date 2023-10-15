@@ -42,9 +42,9 @@
     <br>
   </div>
      <div class="botones">
-        <ion-button class="ingresar" (click)="enviar()">Ingresar</ion-button>
-        <ion-button class="crear" (click)="validacion()">Crea tu cuenta</ion-button>
-        <ion-button id="open-modal" expand="block">Restablecer contraseña</ion-button>
+        <ion-button class="ingresar"  (click)="enviar()">Ingresar</ion-button>
+        <ion-button class="crear"  (click)="validacion()">Crea tu cuenta</ion-button>
+        <ion-button id="open-modal"  expand="block">Restablecer contraseña</ion-button>
         <br>
         <ion-label class="alerta" color="primary">{{alerta}}</ion-label>
 
@@ -79,7 +79,7 @@
                 </ion-input>
               </ion-item>
             </ion-list>
-              <ion-button class="Recuperar" (click)="changePassword()">Recuperar</ion-button>
+              <ion-button class="Recuperar" color="secondary" (click)="changePassword()">Recuperar</ion-button>
               <ion-label class="model_alerta" color="primary">{{model_alerta}}</ion-label>
             </div>
 
@@ -93,5 +93,5 @@
   <br>
   <br>
   <br>
-  <ion-button class="gira" (click)="girarElemento()">gira</ion-button>
+  <ion-button class="gira" color="secondary" (click)="girarElemento()">gira</ion-button>
 </ion-content>
