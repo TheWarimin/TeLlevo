@@ -8,7 +8,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, MatProgressBarModule, BrowserAnimationsModule, IonicStorageModule.forRoot()],

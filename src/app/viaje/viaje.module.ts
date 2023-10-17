@@ -11,8 +11,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {NgIf, NgFor} from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { MapaPageRoutingModule } from './mapa-routing.module';
-import { MapaPage } from './mapa.page';
+import { ViajePageRoutingModule } from './viaje-routing.module';
+import { ViajePage } from './viaje.page';
 
 @NgModule({
   imports: [
@@ -28,8 +28,8 @@ import { MapaPage } from './mapa.page';
     MatFormFieldModule,
     NgIf,
     NgFor,
-    MapaPageRoutingModule,
+    ViajePageRoutingModule
   ],
-  declarations: [MapaPage]
+  declarations: [ViajePage]
 })
-export class MapaPageModule {}
+export class ViajePageModule {}

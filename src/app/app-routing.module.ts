@@ -23,9 +23,16 @@ const routes: Routes = [
     loadChildren: () => import('./mapa/mapa.module').then(m => m.MapaPageModule)
   },
   {
+    path: 'viaje',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./viaje/viaje.module').then( m => m.ViajePageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./error/error.module').then( m => m.ErrorPageModule)
   },
+  
+
 ];
 
 @NgModule({

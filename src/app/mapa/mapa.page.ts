@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
 import { ServiciosService } from '../servicios/servicios.service';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-mapa',
@@ -10,19 +11,24 @@ import { ServiciosService } from '../servicios/servicios.service';
 })
 export class MapaPage implements OnInit {
 
-  constructor(private router: Router, private activatedRouter: ActivatedRoute, private auth: ServiciosService, private authGuard: AuthGuard) { }
+  constructor(private modalController: ModalController, private router: Router, private activatedRouter: ActivatedRoute, private auth: ServiciosService, private authGuard: AuthGuard) { }
   
   showFiller = false;
   user={
     usuario:"",
     password:""
     };
+
     goTologin(){
       this.router.navigate(['/login'], { state: { user: this.user } });
     }
 
     goTomapa(){
       this.router.navigate(['/mapa'], { state: { user: this.user } });
+    }
+
+    goToviaje(){
+      this.router.navigate(['/viaje'], { state: { user: this.user } });
     }
 
     cerrar() {

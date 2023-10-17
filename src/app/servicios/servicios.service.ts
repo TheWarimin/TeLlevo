@@ -7,6 +7,13 @@ interface User {
   password: string;
 }
 
+interface Trip {
+  id: number; 
+  address: string; 
+  departureTime: string; 
+  pricePerPerson: number; 
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +22,8 @@ export class ServiciosService {
   public validado!: boolean;
 
   private local!: Storage;
+
+  private trips: Trip[] = [];
 
   constructor(private storage: Storage, private route: Router) {
     this.init()
@@ -25,7 +34,32 @@ export class ServiciosService {
     this.local = storage;
 
   }
+  
+  addTrip(address: string, departureTime: string, pricePerPerson: number) {
+    const newTrip: Trip = {
+      id: this.trips.length + 1,
+      address,
+      departureTime,
+      pricePerPerson,
+    };
+    this.trips.push(newTrip);
+  }
 
+  deleteTripById(id: number) {
+    const index = this.trips.findIndex((trip) => trip.id === id);
+    if (index !== -1) {
+      this.trips.splice(index, 1);
+    }
+  }
+
+  getViajes(): Trip[] {
+    return this.trips;
+  }
+
+  getTripById(id: number): Trip | undefined {
+    return this.trips.find((trip) => trip.id === id);
+  }
+  
   async register(username: string, password: string) {
     const users = await this.local?.get('users') || [];
     const existe = users.find((us: User) => us.username === username && us.password === password);

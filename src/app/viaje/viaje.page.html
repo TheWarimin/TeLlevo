@@ -1,0 +1,75 @@
+<!-- profe originalmente esto iba estar en un modal pero medio tantos problemas que mande todo a la chucha y rehice todo pero clonando el git
+me di cuenta que tengo archivos reciduales de la api del mapa pero bueno ahora es un agregado -->
+<ion-header [translucent]="true">
+  <ion-toolbar class="techo">
+    <div class="headera">
+      <div class="titulo">
+        <ion-img
+        src="../../assets/icon/viajesa.png"
+        alt="Tellevo icono"
+    ></ion-img>
+    </div>
+      <div class="usuar">
+        <ion-label color="light" ><h3>Bienvenido: {{user.usuario}}</h3></ion-label>
+      </div>
+      <div class="btnmenu">
+        <button mat-icon-button [matMenuTriggerFor]="menu" color="primary">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>build</mat-icon>
+    <span>Configuracion</span>
+  </button>
+  <button mat-menu-item (click)="goToviaje()">
+    <mat-icon>assignment</mat-icon>
+    <span>Crear Viaje</span>
+  </button>
+  <button mat-menu-item (click)="goTomapa()">
+    <mat-icon>assignment</mat-icon>
+    <span>volver</span>
+  </button>
+  <button mat-menu-item (click)="cerrar()">
+    <mat-icon>highlight_off</mat-icon>
+    <span>cerrar sesion</span>
+  </button>
+</mat-menu>
+
+
+<ion-content>
+  <div class="crear-viaje">
+    <ion-item>
+      <ion-label position="floating">Dirección</ion-label>
+      <ion-input [(ngModel)]="direccion"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Hora de Salida</ion-label>
+      <ion-input [(ngModel)]="horaSalida"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Precio por Persona</ion-label>
+      <ion-input [(ngModel)]="precioPorPersona"></ion-input>
+    </ion-item>
+    <ion-button expand="full" (click)="agregarViaje()">Agregar Viaje</ion-button>
+  </div>
+
+  <div class="listar-viajes">
+    <ion-list>
+      <ion-item *ngFor="let viaje of viajes">
+        <ion-checkbox [(ngModel)]="viaje.seleccionado"></ion-checkbox>
+        <ion-label>{{ viaje.address  }}</ion-label>
+        <ion-label>{{ viaje.departureTime }}</ion-label>
+        <ion-label>${{ viaje.pricePerPerson }}</ion-label>
+      </ion-item>
+    </ion-list>
+    
+    <ion-button expand="full" (click)="eliminarViajesMarcados()">Eliminar Viajes Marcados</ion-button>
+    <ion-button expand="full" (click)="actualizarListaViajes()">actualizar listar</ion-button>
+  </div>
+</ion-content>

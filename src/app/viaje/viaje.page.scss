@@ -18,10 +18,18 @@
   flex: 2;
 }
 .titulo{
-  height: 50px;
-  width: 100px;
+  height: 72px;
+  width: 80px;
+  margin-right: 1em;
+  margin-left: 1em;
 }
 
-//.techo{
- // border: 2px solid black;
-//}
+.crear-viaje {
+  padding: 16px;
+}
+
+.listar-viajes {
+  height: 50vh;
+  overflow-y: auto; 
+  padding: 16px;
+}
