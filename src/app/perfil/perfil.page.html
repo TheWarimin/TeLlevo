@@ -3,13 +3,10 @@
     <div class="headera">
       <div class="titulo">
         <ion-img
-        src="../../assets/icon/viajesa.png"
+        src="../../assets/icon/Proyecto nuevo.png"
         alt="Tellevo icono"
     ></ion-img>
     </div>
-      <div class="usuar">
-        <ion-label color="light" ><h3>Bienvenido: {{user.usuario}}</h3></ion-label>
-      </div>
       <div class="btnmenu">
         <button mat-icon-button [matMenuTriggerFor]="menu" color="primary">
           <mat-icon>menu</mat-icon>
@@ -42,26 +39,57 @@
 <br>
 
 <ion-content>
-  <ion-item>
-    <ion-label position="floating">Nuevo Nombre</ion-label>
-    <ion-input [(ngModel)]="newUsername" type="text"></ion-input>
-  </ion-item>
+  <div class="card">
+    <div class="avatar-container">
+      <ion-avatar class="avatar">
+        <ion-img src="../../assets/icon/cato.png" alt="Imagen de perfil"></ion-img>
+      </ion-avatar>
+    </div>
 
-  <ion-item>
-    <ion-label position="floating">Nueva Contraseña</ion-label>
-    <ion-input [(ngModel)]="newPassword" type="password"></ion-input>
-  </ion-item>
+    <div class="user-details">
+      <ion-label color="light">
+        <h2>
+          Nombre: {{ user.usuario }}       
+          <br> 
+          Rol: {{ this.newRole }}
+        </h2>
+      </ion-label>
+    </div>
+  <br>
+    <br>
+      <ion-item>
+        <ion-label position="floating">Nuevo Nombre</ion-label>
+        <ion-input [(ngModel)]="newUsername" type="text"></ion-input>
+      </ion-item>
 
-  <ion-item>
-    <ion-label>Selecciona Nuevo Rol</ion-label>
-    <ion-select [(ngModel)]="newRole">
-      <ion-select-option value="pasajero">Pasajero</ion-select-option>
-      <ion-select-option value="dueno">Dueño</ion-select-option>
-    </ion-select>
-  </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nueva Contraseña</ion-label>
+        <ion-input [(ngModel)]="newPassword" type="password"></ion-input>
+      </ion-item>
 
-  <ion-button expand="full" (click)="guardarCambios()">Guardar Cambios</ion-button>
+      <ion-item>
+        <ion-label>Selecciona Nuevo Rol</ion-label>
+        <ion-select [(ngModel)]="newRole">
+          <ion-select-option value="pasajero">Pasajero</ion-select-option>
+          <ion-select-option value="dueno">Dueño</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-button expand="full" (click)="guardarCambios()">Guardar Cambios</ion-button>
+
+      <br>
+        <ion-item>
+          <ion-label>Selecciona Nuevo Rol</ion-label>
+          <ion-select [(ngModel)]="newRole">
+            <ion-select-option value="pasajero">Pasajero</ion-select-option>
+            <ion-select-option value="dueno">Dueño</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button expand="full" (click)="cambiarRol()">Guardar Cambios</ion-button>
+        <br>
+  </div>
 </ion-content>
+
 
 <div>
   <ion-segment>

@@ -58,6 +58,32 @@ export class ServiciosService {
     this.currentRole = role;
   }
 
+  // En tu ServiciosService
+  async cambiarRol(newRole: 'pasajero' | 'dueno'): Promise<boolean> {
+  try {
+    if (!this.currentUsername) {
+      console.log('Nombre de usuario actual no encontrado');
+      return false;
+    }
+    const userToUpdate = await this.findUserByUsername(this.currentUsername);
+    if (userToUpdate) {
+      userToUpdate.role = newRole;
+      const users: User[] = (await this.local.get('users')) || [];
+      const updatedUsers = users.map((user) => (user.username === this.currentUsername ? userToUpdate : user));
+      await this.local.set('users', updatedUsers);
+      console.log('Rol actualizado con éxito');
+      return true;
+    } else {
+      console.log('El usuario no existe');
+      return false;
+    }
+  } catch (error) {
+    console.error('Error al actualizar el rol:', error);
+    return false;
+  }
+}
+
+
   addTrip(address: string, departureTime: string, pricePerPerson: number) {
     const newTrip: Trip = {
       id: this.trips.length + 1,

@@ -42,7 +42,25 @@ export class PerfilPage implements OnInit {
       }
     }
     
-
+    async cambiarRol() {
+      try {
+        const currentUsername = this.auth.getCurrentUsername(); // Asegúrate de usar el servicio correcto
+        if (currentUsername !== undefined) {
+          const success = await this.auth.cambiarRol(this.newRole); // Usa el nuevo método
+          if (success) {
+            console.log('Cambios guardados con éxito');
+          } else {
+            console.log('Error al guardar cambios');
+          }
+        } else {
+          console.log('Nombre de usuario actual no encontrado');
+        }
+      } catch (error) {
+        console.error('Error inesperado:', error);
+      }
+    }
+  
+    
     goTologin(){
       this.router.navigate(['/login'], { state: { user: this.user } });
     }

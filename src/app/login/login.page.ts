@@ -15,7 +15,10 @@ export class LoginPage implements OnInit {
     usuario: "",
     password: ""
   };
+
   newPassword: string = '';
+  newRole: 'pasajero' | 'dueno' | null = null;
+
   constructor(private router: Router, private animationCtrl: AnimationController, private auth: ServiciosService, private authGuard: AuthGuard) {}
 
   public alerta = "";
@@ -58,12 +61,10 @@ export class LoginPage implements OnInit {
 
   enviar() {
     const { usuario, password } = this.user;
-  
     if (!usuario || !password) {
       this.alerta = "Ingrese sus datos correctamente";
       return;
     }
-  
     this.auth.login(usuario, password)
       .then(() => {
         if (this.auth.validado) {
@@ -74,6 +75,7 @@ export class LoginPage implements OnInit {
           };
           this.router.navigate(['/mapa'], navigationExtras);
         } else {
+          console.log(usuario, password);
           this.alerta = "Credenciales incorrectas";
         }
       })
@@ -82,21 +84,21 @@ export class LoginPage implements OnInit {
         this.alerta = "Ocurrió un error durante la autenticación";
       });
   }
-  
-  
+
 
   validacion(): boolean {
     if (this.user.usuario === "" || this.user.password === "") {
       this.alerta = "Por favor, complete ambos campos";
       return false;
     }
-    const currentRole = this.auth.getCurrentRole();
-    if (currentRole === null) {
-      this.alerta = "Por favor, seleccione un rol despues de registrarse.";
-      return true;
+
+    if (this.newRole === null) {
+      this.alerta = "Seleccione un rol antes de registrarse";
+      return false;
     }
+
     this.alerta = "Registro exitoso";
-    this.auth.register(this.user.usuario, this.user.password, currentRole);
+    this.auth.register(this.user.usuario, this.user.password, this.newRole);
     return true;
   }
 

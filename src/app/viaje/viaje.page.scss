@@ -33,3 +33,11 @@
   overflow-y: auto; 
   padding: 16px;
 }
+
+ion-content {
+  --background: none;
+  background-image: url('../../assets/icon/fondo3.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
