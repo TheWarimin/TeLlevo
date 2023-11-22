@@ -57,25 +57,46 @@ export class LoginPage implements OnInit {
   }
 
   enviar() {
-    this.auth.login(this.user.usuario, this.user.password).then(() => {
-    if (this.auth.validado) {
-      let navigationExtras: NavigationExtras = {
-        state: { user: this.user }
-      }
-      this.router.navigate(['/mapa'], navigationExtras);
-    } else {
-      this.alerta = "ingrese sus datos";
+    const { usuario, password } = this.user;
+  
+    if (!usuario || !password) {
+      this.alerta = "Ingrese sus datos correctamente";
+      return;
     }
-  });
+  
+    this.auth.login(usuario, password)
+      .then(() => {
+        if (this.auth.validado) {
+          this.auth.setCurrentUsername(usuario);
+          const currentUsername = this.auth.getCurrentUsername();
+          const navigationExtras: NavigationExtras = {
+            state: { user: { usuario: currentUsername } }
+          };
+          this.router.navigate(['/mapa'], navigationExtras);
+        } else {
+          this.alerta = "Credenciales incorrectas";
+        }
+      })
+      .catch(error => {
+        console.error("Error durante la autenticación:", error);
+        this.alerta = "Ocurrió un error durante la autenticación";
+      });
   }
+  
+  
 
   validacion(): boolean {
     if (this.user.usuario === "" || this.user.password === "") {
-      this.alerta="Por favor, complete ambos campos";
+      this.alerta = "Por favor, complete ambos campos";
       return false;
     }
-    this.alerta="Registro exitoso";
-    this.auth.register(this.user.usuario, this.user.password);
+    const currentRole = this.auth.getCurrentRole();
+    if (currentRole === null) {
+      this.alerta = "Por favor, seleccione un rol despues de registrarse.";
+      return true;
+    }
+    this.alerta = "Registro exitoso";
+    this.auth.register(this.user.usuario, this.user.password, currentRole);
     return true;
   }
 

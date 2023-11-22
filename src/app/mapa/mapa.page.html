@@ -1,4 +1,5 @@
 <ion-header [translucent]="true">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <ion-toolbar class="techo">
     <div class="headera">
       <div class="titulo">
@@ -18,6 +19,7 @@
     </div>
   </ion-toolbar>
 </ion-header>
+
 <!-- con la extencion de ionic de vs funciona bien-->
 <mat-menu #menu="matMenu">
   <button mat-menu-item>
@@ -34,23 +36,29 @@
   </button>
 </mat-menu>
 
-<!-- aca iria el mapa pero me frustre asique se queda asi-->
 
-<ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="mapa" (click)="goTomapa()">
-      <ion-icon name="location-outline"></ion-icon>
-      mapa
-    </ion-tab-button>
-    <ion-tab-button tab="chat">
-      <ion-icon name="chatbox-ellipses-outline"></ion-icon>
-      chat
-    </ion-tab-button>
-    <ion-tab-button tab="perfil">
-      <ion-icon name="person-circle-outline"></ion-icon>
-      perfil
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>
+<ion-content [scrollEvents]="true" scroll-y="false">
+  <div id="map"></div>
+</ion-content>
+
+
+<div>
+<ion-segment>
+  <ion-segment-button tab="mapa" (click)="goTomapa()" class="boton1">
+    <ion-icon name="location-outline"></ion-icon>
+    mapa
+  </ion-segment-button>
+
+  <ion-segment-button tab="chat" (click)="goTomapa()" class="boton1">
+    <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+    chat
+  </ion-segment-button>
+  
+  <ion-segment-button tab="perfil" (click)="goToperfil()" class="boton1">
+    <ion-icon name="person-circle-outline"></ion-icon>
+    perfil
+  </ion-segment-button>
+</ion-segment>
+</div>
 
 <!-- por ahora es placeholder porque no tengo otras paginas pero funciona (creo)-->

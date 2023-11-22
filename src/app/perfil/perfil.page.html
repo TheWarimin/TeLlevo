@@ -1,0 +1,83 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="techo">
+    <div class="headera">
+      <div class="titulo">
+        <ion-img
+        src="../../assets/icon/viajesa.png"
+        alt="Tellevo icono"
+    ></ion-img>
+    </div>
+      <div class="usuar">
+        <ion-label color="light" ><h3>Bienvenido: {{user.usuario}}</h3></ion-label>
+      </div>
+      <div class="btnmenu">
+        <button mat-icon-button [matMenuTriggerFor]="menu" color="primary">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>build</mat-icon>
+    <span>Configuracion</span>
+  </button>
+  <button mat-menu-item (click)="goToviaje()">
+    <mat-icon>assignment</mat-icon>
+    <span>Crear Viaje</span>
+  </button>
+  <button mat-menu-item (click)="goTomapa()">
+    <mat-icon>assignment</mat-icon>
+    <span>volver</span>
+  </button>
+  <button mat-menu-item (click)="cerrar()">
+    <mat-icon>highlight_off</mat-icon>
+    <span>cerrar sesion</span>
+  </button>
+</mat-menu>
+
+<br>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Nuevo Nombre</ion-label>
+    <ion-input [(ngModel)]="newUsername" type="text"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Nueva Contraseña</ion-label>
+    <ion-input [(ngModel)]="newPassword" type="password"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Selecciona Nuevo Rol</ion-label>
+    <ion-select [(ngModel)]="newRole">
+      <ion-select-option value="pasajero">Pasajero</ion-select-option>
+      <ion-select-option value="dueno">Dueño</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-button expand="full" (click)="guardarCambios()">Guardar Cambios</ion-button>
+</ion-content>
+
+<div>
+  <ion-segment>
+    <ion-segment-button tab="mapa" (click)="goTomapa()" class="boton1">
+      <ion-icon name="location-outline"></ion-icon>
+      mapa
+    </ion-segment-button>
+  
+    <ion-segment-button tab="chat" (click)="goTomapa()" class="boton1">
+      <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+      chat
+    </ion-segment-button>
+    
+    <ion-segment-button tab="perfil" (click)="goToperfil()" class="boton1">
+      <ion-icon name="person-circle-outline"></ion-icon>
+      perfil
+    </ion-segment-button>
+  </ion-segment>
+  </div>

@@ -28,9 +28,16 @@ const routes: Routes = [
     loadChildren: () => import('./viaje/viaje.module').then( m => m.ViajePageModule)
   },
   {
+    path: 'perfil',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./error/error.module').then( m => m.ErrorPageModule)
   },
+  
+
   
 
 ];
