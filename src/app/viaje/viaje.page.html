@@ -53,6 +53,10 @@ me di cuenta que tengo archivos reciduales de la api del mapa pero bueno ahora e
         <ion-label position="floating">Precio por Persona</ion-label>
         <ion-input [(ngModel)]="precioPorPersona"></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label position="floating">Número de Asientos</ion-label>
+        <ion-input [(ngModel)]="numeroAsientos" type="number"></ion-input>
+      </ion-item>      
       <ion-button expand="full" (click)="agregarViaje()">Agregar Viaje</ion-button>
     </div>
 
@@ -63,6 +67,7 @@ me di cuenta que tengo archivos reciduales de la api del mapa pero bueno ahora e
           <ion-label>{{ viaje.address  }}</ion-label>
           <ion-label>{{ viaje.departureTime }}</ion-label>
           <ion-label>${{ viaje.pricePerPerson }}</ion-label>
+          <ion-label>{{ viaje.numberOfSeats }}</ion-label>
         </ion-item>
       </ion-list>
       

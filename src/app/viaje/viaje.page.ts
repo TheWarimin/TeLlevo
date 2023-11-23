@@ -14,6 +14,7 @@ export class ViajePage implements OnInit {
   direccion: string = '';
   horaSalida: string = '';
   precioPorPersona: number = 0;
+  numeroAsientos: number = 0;
   viajes: any[] = [];;
   
 
@@ -44,7 +45,7 @@ export class ViajePage implements OnInit {
 
     agregarViaje() {
       if (this.direccion && this.horaSalida && this.precioPorPersona > 0) {
-        this.auth.addTrip(this.direccion, this.horaSalida, this.precioPorPersona);
+        this.auth.addTrip(this.direccion, this.horaSalida, this.precioPorPersona, this.numeroAsientos);
         this.direccion = '';
         this.horaSalida = '';
         this.precioPorPersona = 0;
@@ -53,6 +54,7 @@ export class ViajePage implements OnInit {
         console.log("Por favor, complete todos los campos y asegúrese de que el precio sea mayor que 0.");
       }
     }
+    
   
     eliminarViajesMarcados() {
       const viajesMarcados = this.viajes.filter((viaje) => viaje.seleccionado);
@@ -97,9 +99,6 @@ export class ViajePage implements OnInit {
           }
           console.log("Usuario actual:", this.user);
           console.log("Rol actual:", this.auth.getCurrentRole());
-          if (this.isAdmin()) {
-            this.actualizarListaViajes();
-          }
         }
       });
     }

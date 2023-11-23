@@ -15,6 +15,7 @@ interface Trip {
   address: string; 
   departureTime: string; 
   pricePerPerson: number; 
+  numberOfSeats: number;
 }
 
 @Injectable({
@@ -85,15 +86,17 @@ export class ServiciosService {
   }
 
 
-  addTrip(address: string, departureTime: string, pricePerPerson: number) {
+  addTrip(address: string, departureTime: string, pricePerPerson: number, numberOfSeats: number) {
     const newTrip: Trip = {
       id: this.trips.length + 1,
       address,
       departureTime,
       pricePerPerson,
+      numberOfSeats,
     };
     this.trips.push(newTrip);
   }
+  
 
   deleteTripById(id: number) {
     const index = this.trips.findIndex((trip) => trip.id === id);
