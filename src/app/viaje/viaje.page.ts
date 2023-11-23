@@ -38,9 +38,13 @@ export class ViajePage implements OnInit {
       return userRole === 'pasajero';
     }
 
-
     selectViaje(viaje: any) {
-      console.log('Viaje seleccionado:', viaje);
+      if (viaje.seatsTaken < viaje.numberOfSeats) {
+        viaje.seatsTaken++;
+        console.log('Viaje seleccionado:', viaje);
+      } else {
+        console.log('No hay asientos disponibles para este viaje.');
+      }
     }
 
     agregarViaje() {

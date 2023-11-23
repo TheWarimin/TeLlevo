@@ -26,7 +26,7 @@ me di cuenta que tengo archivos reciduales de la api del mapa pero bueno ahora e
   </button>
   <button mat-menu-item (click)="goToviaje()">
     <mat-icon>assignment</mat-icon>
-    <span>Crear Viaje</span>
+    <span>Viajes</span>
   </button>
   <button mat-menu-item (click)="goTomapa()">
     <mat-icon>assignment</mat-icon>
@@ -67,7 +67,7 @@ me di cuenta que tengo archivos reciduales de la api del mapa pero bueno ahora e
           <ion-label>{{ viaje.address  }}</ion-label>
           <ion-label>{{ viaje.departureTime }}</ion-label>
           <ion-label>${{ viaje.pricePerPerson }}</ion-label>
-          <ion-label>{{ viaje.numberOfSeats }}</ion-label>
+          <ion-label>{{ viaje.numberOfSeats - viaje.seatsTaken }}</ion-label>
         </ion-item>
       </ion-list>
       
@@ -80,7 +80,7 @@ me di cuenta que tengo archivos reciduales de la api del mapa pero bueno ahora e
     <h1 style="color: black;">Bienvenido, Pasajero</h1>
       <ion-list>
         <ion-item *ngFor="let viaje of viajes" (click)="selectViaje(viaje)">
-          <ion-label>{{ viaje.address }}</ion-label>
+          <ion-label>Asientos disponibles: {{ viaje.numberOfSeats - viaje.seatsTaken }}</ion-label>
         </ion-item>
       </ion-list>
   </div>

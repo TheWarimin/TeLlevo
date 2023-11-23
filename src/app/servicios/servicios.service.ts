@@ -11,12 +11,14 @@ interface User {
 }
 
 interface Trip {
-  id: number; 
-  address: string; 
-  departureTime: string; 
-  pricePerPerson: number; 
+  id: number;
+  address: string;
+  departureTime: string;
+  pricePerPerson: number;
   numberOfSeats: number;
+  seatsTaken: number;
 }
+
 
 @Injectable({
   providedIn: 'root'
@@ -93,9 +95,11 @@ export class ServiciosService {
       departureTime,
       pricePerPerson,
       numberOfSeats,
+      seatsTaken: 0,
     };
     this.trips.push(newTrip);
   }
+  
   
 
   deleteTripById(id: number) {
