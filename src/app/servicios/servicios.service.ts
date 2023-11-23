@@ -7,8 +7,10 @@ import { Subject } from 'rxjs';
 interface User {
   username: string;
   password: string;
-  role: 'pasajero' | 'dueno'; 
+  role: 'pasajero' | 'dueno';
+  takenTrips?: Trip[]; 
 }
+
 
 interface Trip {
   id: number;
@@ -60,7 +62,6 @@ export class ServiciosService {
   setCurrentRole(role: 'pasajero' | 'dueno'): void {
     this.currentRole = role;
   }
-  
 
   async cambiarRol(newRole: 'pasajero' | 'dueno'): Promise<boolean> {
     try {
@@ -123,14 +124,15 @@ export class ServiciosService {
     if (existe) {
       console.log("Usuario Existente");
     } else {
-      const nuevo: User = { username, password, role };
+      const nuevo: User = { username, password, role, takenTrips: [] };
       users.push(nuevo);
       await this.local.set('users', users);
       console.log("Registrando con el rol:", role);
       console.log("Registro Exitoso");
-      this.setCurrentRole(role); // Add this line to set the role of the new user
+      this.setCurrentRole(role);
     }
   }
+  
   
 
   async login(username: string, password: string): Promise<boolean> {
@@ -139,13 +141,15 @@ export class ServiciosService {
     if (user) {
       console.log("logeado (validado correctamente)")
       this.validado = true;
-      this.setCurrentRole(user.role); // Add this line to set the role of the logged-in user
+      this.setCurrentRole(user.role);
+      this.setCurrentUsername(username);
       return true;
     }
     console.log("no logeado (invalido)")
     this.validado = false;
     return false;
   }
+  
   
 
   async findUserByUsername(username: string): Promise<User | undefined> {

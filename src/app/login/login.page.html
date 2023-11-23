@@ -46,7 +46,6 @@
         <ion-button size="small" fill="clear" id="open-modal2" expand="block">Crea tu cuenta</ion-button>
         <ion-button size="small" fill="clear" id="open-modal"  expand="block">Restablecer contraseña</ion-button>
         <br>
-        <ion-label class="alerta" color="primary">{{alerta}}</ion-label>
 
     <ion-modal #modal trigger="open-modal2" class="model2">
       <ng-template>
@@ -89,7 +88,6 @@
             </ion-list>
             <br>
             <ion-button class="crear"  (click)="validacion()">Crea tu cuenta</ion-button>
-            <ion-label class="alerta" color="primary">{{alerta}}</ion-label>
           </div>
         </ion-content>
       </ng-template>
@@ -125,7 +123,6 @@
               </ion-item>
             </ion-list>
               <ion-button class="Recuperar" color="secondary" (click)="changePassword()">Recuperar</ion-button>
-              <ion-label class="model_alerta" color="primary">{{model_alerta}}</ion-label>
             </div>
           </ion-content>
       </ng-template>

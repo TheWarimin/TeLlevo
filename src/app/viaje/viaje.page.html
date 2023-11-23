@@ -1,5 +1,3 @@
-<!-- profe originalmente esto iba estar en un modal pero medio tantos problemas que mande todo a la chucha y rehice todo pero clonando el git
-me di cuenta que tengo archivos reciduales de la api del mapa pero bueno ahora es un agregado -->
 <ion-header [translucent]="true">
   <ion-toolbar class="techo">
     <div class="headera">
@@ -76,14 +74,32 @@ me di cuenta que tengo archivos reciduales de la api del mapa pero bueno ahora e
     </div>
   </div>
 
-  <div class="userPart" *ngIf="isUser()">
+  <div class="userPart" *ngIf="isUser()" style="overflow: auto;">
     <h1 style="color: black;">Bienvenido, Pasajero</h1>
-      <ion-list>
-        <ion-item *ngFor="let viaje of viajes" (click)="selectViaje(viaje)">
-          <ion-label>Asientos disponibles: {{ viaje.numberOfSeats - viaje.seatsTaken }}</ion-label>
-        </ion-item>
-      </ion-list>
+    <ion-list>
+      <ion-item *ngFor="let viaje of viajes">
+        <div (click)="selectViaje(viaje)">
+          <ion-card style="width: 400px; background-color: #477ea7">
+            <ion-card-header>
+              <ion-card-title style="color: aliceblue;">{{ viaje.address }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content style="color: aliceblue;">
+              <ion-card-subtitle>Hora de salida</ion-card-subtitle>
+              {{ viaje.departureTime }}
+              <ion-card-subtitle>Precio por persona</ion-card-subtitle>
+              ${{ viaje.pricePerPerson }}
+              <ion-card-subtitle>Asientos disponibles</ion-card-subtitle>
+              {{ viaje.numberOfSeats - viaje.seatsTaken }}
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </ion-item>
+    </ion-list>
   </div>
+  
+  
+  
+  
 
 </ion-content>
 

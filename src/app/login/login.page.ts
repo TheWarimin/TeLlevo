@@ -3,6 +3,7 @@ import { Router , NavigationExtras } from '@angular/router';
 import { AnimationController, Animation  } from '@ionic/angular';
 import { ServiciosService } from '../servicios/servicios.service';
 import { AuthGuard } from '../guards/auth.guard';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -19,10 +20,17 @@ export class LoginPage implements OnInit {
   newPassword: string = '';
   newRole: 'pasajero' | 'dueno' | null = null;
 
-  constructor(private router: Router, private animationCtrl: AnimationController, private auth: ServiciosService, private authGuard: AuthGuard) {}
+  constructor(private toastController: ToastController, private router: Router, private animationCtrl: AnimationController, private auth: ServiciosService, private authGuard: AuthGuard) {}
 
-  public alerta = "";
-  public model_alerta = "";
+  async mostrarMensaje(mensaje: string, color: string = 'success') {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 2000, 
+      color: color,
+      position: 'top' 
+    });
+    toast.present();
+  }
 
   async girarElemento() {
     const elemento = document.querySelector('.contenedor');
@@ -62,7 +70,7 @@ export class LoginPage implements OnInit {
   enviar() {
     const { usuario, password } = this.user;
     if (!usuario || !password) {
-      this.alerta = "Ingrese sus datos correctamente";
+      this.mostrarMensaje ("Ingrese sus datos correctamente","danger");
       return;
     }
     this.auth.login(usuario, password)
@@ -77,28 +85,28 @@ export class LoginPage implements OnInit {
           this.router.navigate(['/mapa'], navigationExtras);
         } else {
           console.log(usuario, password);
-          this.alerta = "Credenciales incorrectas";
+          this.mostrarMensaje("Credenciales incorrectas","danger");
         }
       })
       .catch(error => {
-        console.error("Error durante la autenticación:", error);
-        this.alerta = "Ocurrió un error durante la autenticación";
+        console.error("Error durante la autenticación:","danger", error);
+        this.mostrarMensaje("Ocurrió un error durante la autenticación","danger");
       });
   }
 
 
   validacion(): boolean {
     if (this.user.usuario === "" || this.user.password === "") {
-      this.alerta = "Por favor, complete ambos campos";
+      this.mostrarMensaje ("Por favor, complete ambos campos","danger");
       return false;
     }
 
     if (this.newRole === null) {
-      this.alerta = "Seleccione un rol antes de registrarse";
+      this.mostrarMensaje("Seleccione un rol antes de registrarse","danger");
       return false;
     }
 
-    this.alerta = "Registro exitoso";
+    this.mostrarMensaje ("Registro exitoso");
     this.auth.register(this.user.usuario, this.user.password, this.newRole);
     return true;
   }
@@ -109,12 +117,12 @@ export class LoginPage implements OnInit {
     if (username && newPassword) {
       const success = await this.auth.changePassword(username, newPassword);
       if (success) {
-        this.model_alerta="Contraseña cambiada con exito";
+        this.mostrarMensaje("Contraseña cambiada con exito");
       } else {
-        this.model_alerta="Error cambiando contraseña";
+        this.mostrarMensaje("Error cambiando contraseña","danger");
       }
     } else {
-      this.model_alerta="Ingrese tanto usuario como nueva contraseña";
+      this.mostrarMensaje("Ingrese tanto usuario como nueva contraseña","danger");
     }
   }
   

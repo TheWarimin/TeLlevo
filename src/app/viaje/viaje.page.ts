@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
 import { ServiciosService } from '../servicios/servicios.service';
 import { ModalController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-viaje',
@@ -18,13 +20,23 @@ export class ViajePage implements OnInit {
   viajes: any[] = [];;
   
 
-  constructor(private modalController: ModalController, private router: Router, private activatedRouter: ActivatedRoute, private auth: ServiciosService, private authGuard: AuthGuard,private serviciosService: ServiciosService) { }
+  constructor(private toastController: ToastController, private modalController: ModalController, private router: Router, private activatedRouter: ActivatedRoute, private auth: ServiciosService, private authGuard: AuthGuard,private serviciosService: ServiciosService) { }
 
   showFiller = false;
   user={
     usuario:"",
     password:""
     };
+
+    async mostrarMensaje(mensaje: string, color: string = 'success') {
+      const toast = await this.toastController.create({
+        message: mensaje,
+        duration: 2000, 
+        color: color,
+        position: 'top' 
+      });
+      toast.present();
+    }
 
     isAdmin(): boolean {
       const userRole = this.serviciosService.getCurrentRole();
@@ -41,9 +53,9 @@ export class ViajePage implements OnInit {
     selectViaje(viaje: any) {
       if (viaje.seatsTaken < viaje.numberOfSeats) {
         viaje.seatsTaken++;
-        console.log('Viaje seleccionado:', viaje);
+        this.mostrarMensaje('Viaje seleccionado.');
       } else {
-        console.log('No hay asientos disponibles para este viaje.');
+        this.mostrarMensaje('No hay asientos disponibles para este viaje.','danger');
       }
     }
 
@@ -54,12 +66,12 @@ export class ViajePage implements OnInit {
         this.horaSalida = '';
         this.precioPorPersona = 0;
         this.actualizarListaViajes();
+        this.mostrarMensaje('Viaje agregado correctamente.');
       } else {
-        console.log("Por favor, complete todos los campos y asegúrese de que el precio sea mayor que 0.");
+        this.mostrarMensaje("Por favor, complete todos los campos y asegúrese de que el precio sea mayor que 0.",'danger');
       }
     }
     
-  
     eliminarViajesMarcados() {
       const viajesMarcados = this.viajes.filter((viaje) => viaje.seleccionado);
       if (viajesMarcados.length > 0) {
