@@ -15,7 +15,7 @@ export class ViajePage implements OnInit {
   horaSalida: string = '';
   precioPorPersona: number = 0;
   viajes: any[] = [];;
-
+  
 
   constructor(private modalController: ModalController, private router: Router, private activatedRouter: ActivatedRoute, private auth: ServiciosService, private authGuard: AuthGuard,private serviciosService: ServiciosService) { }
 
@@ -26,19 +26,19 @@ export class ViajePage implements OnInit {
     };
 
     isAdmin(): boolean {
-      return this.serviciosService.getCurrentRole() === 'dueno';
+      const userRole = this.serviciosService.getCurrentRole();
+      console.log("Rol actual:", userRole);
+      return userRole === 'dueno';
     }
   
-    // En perfil.page.ts
     isUser(): boolean {
       const userRole = this.serviciosService.getCurrentRole();
       console.log("Rol actual:", userRole);
       return userRole === 'pasajero';
-}
+    }
 
 
     selectViaje(viaje: any) {
-      // Aquí puedes realizar acciones adicionales cuando se selecciona un viaje
       console.log('Viaje seleccionado:', viaje);
     }
 
@@ -97,6 +97,9 @@ export class ViajePage implements OnInit {
           }
           console.log("Usuario actual:", this.user);
           console.log("Rol actual:", this.auth.getCurrentRole());
+          if (this.isAdmin()) {
+            this.actualizarListaViajes();
+          }
         }
       });
     }

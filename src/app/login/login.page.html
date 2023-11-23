@@ -23,7 +23,7 @@
     <ion-list >
       <ion-item>
         <ion-input class="inputusu" type="text" [(ngModel)]="user.usuario"
-        labelPlacement="floating" 
+        labelPlacement="floating" minlength="3"
         value="" maxlength="15" placeholder="Ingrese usuario" requiered>
           <div slot="label">Usuario</div>
         </ion-input>
@@ -33,7 +33,7 @@
     <ion-list>
       <ion-item>
         <ion-input type="password" [(ngModel)]="user.password"
-        labelPlacement="floating" maxlength="8" 
+        labelPlacement="floating" maxlength="8" minlength="3"
         placeholder="Ingrese contraseña" requiered>
           <div slot="label">Contraseña</div>
         </ion-input>
@@ -61,7 +61,7 @@
             <ion-list >
               <ion-item>
                 <ion-input class="inputusu" type="text" [(ngModel)]="user.usuario"
-                labelPlacement="floating" 
+                labelPlacement="floating" minlength="3"
                 value="" maxlength="15" placeholder="Ingrese usuario" requiered>
                   <div slot="label">Usuario</div>
                 </ion-input>
@@ -71,7 +71,7 @@
             <ion-list>
               <ion-item>
                 <ion-input type="password" [(ngModel)]="user.password"
-                labelPlacement="floating" maxlength="8" 
+                labelPlacement="floating" maxlength="8" minlength="3"
                 placeholder="Ingrese contraseña" requiered>
                   <div slot="label">Contraseña</div>
                 </ion-input>

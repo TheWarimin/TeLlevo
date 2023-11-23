@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
+import { AnimationController, Animation  } from '@ionic/angular';
 import { ServiciosService } from '../servicios/servicios.service';
 import { ModalController } from '@ionic/angular';
 
@@ -11,13 +12,14 @@ import { ModalController } from '@ionic/angular';
 })
 export class PerfilPage implements OnInit {
 
-  constructor(private modalController: ModalController, private router: Router, private activatedRouter: ActivatedRoute, public auth: ServiciosService, private authGuard: AuthGuard) { }
+  constructor(private modalController: ModalController, private animationCtrl: AnimationController,private router: Router, private activatedRouter: ActivatedRoute, public auth: ServiciosService, private authGuard: AuthGuard) { }
 
   showFiller = false;
   user={
     usuario:"",
     password:""
     };
+    public alerta = "";
 
     newUsername: string = '';
     newPassword: string = '';
@@ -30,6 +32,7 @@ export class PerfilPage implements OnInit {
           const success = await this.auth.changeUserProfile(this.newUsername, this.newPassword, this.newRole);
           if (success) {
             console.log('Cambios guardados con éxito');
+            this.auth.logout() //se cierra porque necesita actualizarse, se que se puede de otras formas pero me daba problemas asi que eso. 
           } else {
             console.log('Error al guardar cambios');
           }
@@ -44,12 +47,13 @@ export class PerfilPage implements OnInit {
     
     async cambiarRol() {
       try {
-        const currentUsername = this.auth.getCurrentUsername(); // Asegúrate de usar el servicio correcto
+        const currentUsername = this.auth.getCurrentUsername();
         if (currentUsername !== undefined) {
-          const success = await this.auth.cambiarRol(this.newRole); // Usa el nuevo método
+          const success = await this.auth.cambiarRol(this.newRole);
           if (success) {
             console.log("Nuevo rol al cambiar el perfil:", this.newRole);
             console.log('Cambios guardados con éxito');
+            this.auth.logout() //se cierra porque necesita actualizarse, se que se puede de otras formas pero me daba problemas asi que eso. 
           } else {
             console.log('Error al guardar cambios');
           }

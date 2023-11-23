@@ -38,46 +38,48 @@ me di cuenta que tengo archivos reciduales de la api del mapa pero bueno ahora e
   </button>
 </mat-menu>
 
-
-<div *ngIf="isUser()">
-<ion-content>
-  <div class="crear-viaje">
-    <ion-item>
-      <ion-label position="floating">Dirección</ion-label>
-      <ion-input [(ngModel)]="direccion"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Hora de Salida</ion-label>
-      <ion-input [(ngModel)]="horaSalida"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Precio por Persona</ion-label>
-      <ion-input [(ngModel)]="precioPorPersona"></ion-input>
-    </ion-item>
-    <ion-button expand="full" (click)="agregarViaje()">Agregar Viaje</ion-button>
-  </div>
-
-  <div class="listar-viajes">
-    <ion-list>
-      <ion-item *ngFor="let viaje of viajes">
-        <ion-checkbox [(ngModel)]="viaje.seleccionado"></ion-checkbox>
-        <ion-label>{{ viaje.address  }}</ion-label>
-        <ion-label>{{ viaje.departureTime }}</ion-label>
-        <ion-label>${{ viaje.pricePerPerson }}</ion-label>
+<ion-content >
+  <div class="adminPart" *ngIf="!isUser()">
+    <div class="crear-viaje">
+      <ion-item>
+        <ion-label position="floating">Dirección</ion-label>
+        <ion-input [(ngModel)]="direccion"></ion-input>
       </ion-item>
-    </ion-list>
-    
-    <ion-button expand="full" (click)="eliminarViajesMarcados()">Eliminar Viajes Marcados</ion-button>
-    <ion-button expand="full" (click)="actualizarListaViajes()">actualizar listar</ion-button>
+      <ion-item>
+        <ion-label position="floating">Hora de Salida</ion-label>
+        <ion-input [(ngModel)]="horaSalida"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Precio por Persona</ion-label>
+        <ion-input [(ngModel)]="precioPorPersona"></ion-input>
+      </ion-item>
+      <ion-button expand="full" (click)="agregarViaje()">Agregar Viaje</ion-button>
+    </div>
+
+    <div class="listar-viajes">
+      <ion-list>
+        <ion-item *ngFor="let viaje of viajes">
+          <ion-checkbox [(ngModel)]="viaje.seleccionado"></ion-checkbox>
+          <ion-label>{{ viaje.address  }}</ion-label>
+          <ion-label>{{ viaje.departureTime }}</ion-label>
+          <ion-label>${{ viaje.pricePerPerson }}</ion-label>
+        </ion-item>
+      </ion-list>
+      
+      <ion-button expand="full" (click)="eliminarViajesMarcados()">Eliminar Viajes Marcados</ion-button>
+      <ion-button expand="full" (click)="actualizarListaViajes()">actualizar listar</ion-button>
+    </div>
   </div>
+
+  <div class="userPart" *ngIf="isUser()">
+    <h1 style="color: black;">Bienvenido, Pasajero</h1>
+      <ion-list>
+        <ion-item *ngFor="let viaje of viajes" (click)="selectViaje(viaje)">
+          <ion-label>{{ viaje.address }}</ion-label>
+        </ion-item>
+      </ion-list>
+  </div>
+
 </ion-content>
-</div>
 
-<div *ngIf="isUser()">
-  <h1>Bienvenido, Pasajero</h1>
-    <ion-list>
-      <ion-item *ngFor="let viaje of viajes" (click)="selectViaje(viaje)">
-        <ion-label>{{ viaje.address }}</ion-label>
-      </ion-item>
-    </ion-list>
-</div>
+
