@@ -64,15 +64,19 @@ export class MapaPage implements OnInit {
       L.marker([lat, lng]).addTo(this.map).bindPopup('Ubicación actual');
     }
 
-  ngOnInit() {
-    this.activatedRouter.queryParams.subscribe(() => {
-      let state = this.router.getCurrentNavigation()?.extras.state;
-      if (state) {
-        this.user.usuario = state['user'].usuario;
-        this.user.password = state['user'].password;
-        console.log(this.user);
+    ngOnInit() {
+      this.activatedRouter.queryParams.subscribe((params) => {
+        const state = this.router.getCurrentNavigation()?.extras.state;
+        if (state && state['user']) {
+          this.user.usuario = state['user'].usuario;
+          this.user.password = state['user'].password;
+          if (state['user'].newRole) {
+            this.auth.setCurrentRole(state['user'].newRole);
+          }
+          console.log("Usuario actual:", this.user);
+          console.log("Rol actual:", this.auth.getCurrentRole());
         }
-      })
-  }
+      });
+    }
 
 }

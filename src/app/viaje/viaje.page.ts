@@ -17,13 +17,30 @@ export class ViajePage implements OnInit {
   viajes: any[] = [];;
 
 
-  constructor(private modalController: ModalController, private router: Router, private activatedRouter: ActivatedRoute, private auth: ServiciosService, private authGuard: AuthGuard) { }
+  constructor(private modalController: ModalController, private router: Router, private activatedRouter: ActivatedRoute, private auth: ServiciosService, private authGuard: AuthGuard,private serviciosService: ServiciosService) { }
 
   showFiller = false;
   user={
     usuario:"",
     password:""
     };
+
+    isAdmin(): boolean {
+      return this.serviciosService.getCurrentRole() === 'dueno';
+    }
+  
+    // En perfil.page.ts
+    isUser(): boolean {
+      const userRole = this.serviciosService.getCurrentRole();
+      console.log("Rol actual:", userRole);
+      return userRole === 'pasajero';
+}
+
+
+    selectViaje(viaje: any) {
+      // Aquí puedes realizar acciones adicionales cuando se selecciona un viaje
+      console.log('Viaje seleccionado:', viaje);
+    }
 
     agregarViaje() {
       if (this.direccion && this.horaSalida && this.precioPorPersona > 0) {
@@ -70,14 +87,18 @@ export class ViajePage implements OnInit {
     }  
 
     ngOnInit() {
-      this.activatedRouter.queryParams.subscribe(() => {
-        let state = this.router.getCurrentNavigation()?.extras.state;
-        if (state) {
+      this.activatedRouter.queryParams.subscribe((params) => {
+        const state = this.router.getCurrentNavigation()?.extras.state;
+        if (state && state['user']) {
           this.user.usuario = state['user'].usuario;
           this.user.password = state['user'].password;
-          console.log(this.user);
+          if (state['user'].newRole) {
+            this.auth.setCurrentRole(state['user'].newRole);
           }
-        })
+          console.log("Usuario actual:", this.user);
+          console.log("Rol actual:", this.auth.getCurrentRole());
+        }
+      });
     }
 
 }

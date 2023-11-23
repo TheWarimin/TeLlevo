@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 interface User {
   username: string;
   password: string;
-  role: 'pasajero' | 'dueno';
+  role: 'pasajero' | 'dueno'; 
 }
 
 interface Trip {
@@ -50,38 +50,39 @@ export class ServiciosService {
     this.currentUsernameSubject.next(username);
   }
 
-  getCurrentRole(): 'pasajero' | 'dueno' | null {
-    return this.currentRole;
+  getCurrentRole(): 'pasajero' | 'dueno' {
+    return this.currentRole || 'pasajero'; 
   }
 
-  setCurrentRole(role: 'pasajero' | 'dueno' | null): void {
+  setCurrentRole(role: 'pasajero' | 'dueno'): void {
     this.currentRole = role;
   }
+  
 
-  // En tu ServiciosService
   async cambiarRol(newRole: 'pasajero' | 'dueno'): Promise<boolean> {
-  try {
-    if (!this.currentUsername) {
-      console.log('Nombre de usuario actual no encontrado');
+    try {
+      if (!this.currentUsername) {
+        console.log('Nombre de usuario actual no encontrado');
+        return false;
+      }
+      const userToUpdate = await this.findUserByUsername(this.currentUsername);
+      if (userToUpdate) {
+        userToUpdate.role = newRole;
+        const users: User[] = (await this.local.get('users')) || [];
+        const updatedUsers = users.map((user) => (user.username === this.currentUsername ? userToUpdate : user));
+        await this.local.set('users', updatedUsers);
+        console.log("Cambiando el rol a:", newRole);
+        console.log('Rol actualizado con éxito');
+        return true;
+      } else {
+        console.log('El usuario no existe');
+        return false;
+      }
+    } catch (error) {
+      console.error('Error al actualizar el rol:', error);
       return false;
     }
-    const userToUpdate = await this.findUserByUsername(this.currentUsername);
-    if (userToUpdate) {
-      userToUpdate.role = newRole;
-      const users: User[] = (await this.local.get('users')) || [];
-      const updatedUsers = users.map((user) => (user.username === this.currentUsername ? userToUpdate : user));
-      await this.local.set('users', updatedUsers);
-      console.log('Rol actualizado con éxito');
-      return true;
-    } else {
-      console.log('El usuario no existe');
-      return false;
-    }
-  } catch (error) {
-    console.error('Error al actualizar el rol:', error);
-    return false;
   }
-}
 
 
   addTrip(address: string, departureTime: string, pricePerPerson: number) {
@@ -118,9 +119,12 @@ export class ServiciosService {
       const nuevo: User = { username, password, role };
       users.push(nuevo);
       await this.local.set('users', users);
+      console.log("Registrando con el rol:", role);
       console.log("Registro Exitoso");
+      this.setCurrentRole(role); // Add this line to set the role of the new user
     }
   }
+  
 
   async login(username: string, password: string): Promise<boolean> {
     const users: User[] = (await this.local.get('users')) || [];
@@ -128,12 +132,14 @@ export class ServiciosService {
     if (user) {
       console.log("logeado (validado correctamente)")
       this.validado = true;
+      this.setCurrentRole(user.role); // Add this line to set the role of the logged-in user
       return true;
     }
     console.log("no logeado (invalido)")
     this.validado = false;
     return false;
   }
+  
 
   async findUserByUsername(username: string): Promise<User | undefined> {
     const users: User[] = (await this.local.get('users')) || [];

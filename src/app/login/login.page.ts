@@ -73,6 +73,7 @@ export class LoginPage implements OnInit {
           const navigationExtras: NavigationExtras = {
             state: { user: { usuario: currentUsername } }
           };
+          console.log("Nuevo rol al registrarse:", this.newRole);
           this.router.navigate(['/mapa'], navigationExtras);
         } else {
           console.log(usuario, password);

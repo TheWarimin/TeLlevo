@@ -39,6 +39,7 @@ me di cuenta que tengo archivos reciduales de la api del mapa pero bueno ahora e
 </mat-menu>
 
 
+<div *ngIf="isUser()">
 <ion-content>
   <div class="crear-viaje">
     <ion-item>
@@ -70,3 +71,13 @@ me di cuenta que tengo archivos reciduales de la api del mapa pero bueno ahora e
     <ion-button expand="full" (click)="actualizarListaViajes()">actualizar listar</ion-button>
   </div>
 </ion-content>
+</div>
+
+<div *ngIf="isUser()">
+  <h1>Bienvenido, Pasajero</h1>
+    <ion-list>
+      <ion-item *ngFor="let viaje of viajes" (click)="selectViaje(viaje)">
+        <ion-label>{{ viaje.address }}</ion-label>
+      </ion-item>
+    </ion-list>
+</div>

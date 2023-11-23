@@ -11,7 +11,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class PerfilPage implements OnInit {
 
-  constructor(private modalController: ModalController, private router: Router, private activatedRouter: ActivatedRoute, private auth: ServiciosService, private authGuard: AuthGuard) { }
+  constructor(private modalController: ModalController, private router: Router, private activatedRouter: ActivatedRoute, public auth: ServiciosService, private authGuard: AuthGuard) { }
 
   showFiller = false;
   user={
@@ -48,6 +48,7 @@ export class PerfilPage implements OnInit {
         if (currentUsername !== undefined) {
           const success = await this.auth.cambiarRol(this.newRole); // Usa el nuevo método
           if (success) {
+            console.log("Nuevo rol al cambiar el perfil:", this.newRole);
             console.log('Cambios guardados con éxito');
           } else {
             console.log('Error al guardar cambios');
@@ -82,14 +83,21 @@ export class PerfilPage implements OnInit {
     }  
 
     ngOnInit() {
-      this.activatedRouter.queryParams.subscribe(() => {
-        let state = this.router.getCurrentNavigation()?.extras.state;
-        if (state) {
+      this.activatedRouter.queryParams.subscribe((params) => {
+        const state = this.router.getCurrentNavigation()?.extras.state;
+        if (state && state['user']) {
           this.user.usuario = state['user'].usuario;
           this.user.password = state['user'].password;
-          console.log(this.user);
+          if (state['user'].newRole) {
+            this.auth.setCurrentRole(state['user'].newRole);
           }
-        })
+          console.log("Usuario actual:", this.user);
+          console.log("Rol actual:", this.auth.getCurrentRole());
+        }
+      });
     }
+    
+    
+    
 
 }
