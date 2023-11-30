@@ -1,5 +1,8 @@
 <ion-header [translucent]="true">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
   <ion-toolbar class="techo">
     <div class="headera">
       <div class="titulo">
@@ -20,7 +23,6 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- con la extencion de ionic de vs funciona bien-->
 <mat-menu #menu="matMenu">
   <button mat-menu-item>
     <mat-icon>build</mat-icon>

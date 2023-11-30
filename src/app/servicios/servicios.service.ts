@@ -19,6 +19,8 @@ interface Trip {
   pricePerPerson: number;
   numberOfSeats: number;
   seatsTaken: number;
+  startcoordinate: string ;
+  endcoordinate: string ;
 }
 
 
@@ -43,6 +45,9 @@ export class ServiciosService {
 
   }
   
+  private tripStartCoordinate: { lat: number, lng: number } | undefined;
+  private tripEndCoordinate: { lat: number, lng: number } | undefined;
+
   private currentRole: 'pasajero' | 'dueno' | null = null;
 
   private currentUsername: string | undefined;
@@ -89,7 +94,7 @@ export class ServiciosService {
   }
 
 
-  addTrip(address: string, departureTime: string, pricePerPerson: number, numberOfSeats: number) {
+  addTrip(address: string, departureTime: string, pricePerPerson: number, numberOfSeats: number, startcoordinate: string, endcoordinate: string) {
     const newTrip: Trip = {
       id: this.trips.length + 1,
       address,
@@ -97,10 +102,11 @@ export class ServiciosService {
       pricePerPerson,
       numberOfSeats,
       seatsTaken: 0,
+      startcoordinate,
+      endcoordinate,
     };
     this.trips.push(newTrip);
   }
-  
   
 
   deleteTripById(id: number) {
@@ -111,8 +117,10 @@ export class ServiciosService {
   }
 
   getViajes(): Trip[] {
+    console.log('Trips:', this.trips);
     return this.trips;
   }
+  
 
   getTripById(id: number): Trip | undefined {
     return this.trips.find((trip) => trip.id === id);
@@ -204,6 +212,51 @@ export class ServiciosService {
 
   getCurrentUsername(): string | undefined {
     return this.currentUsername;
+  }
+
+  getTripStartCoordinate(): { lat: number; lng: number } | undefined {
+    const trips = this.getViajes();
+    if (trips.length > 0) {
+      const startCoordinate = this.extractLatAndLng(trips[0].startcoordinate);
+      console.log('Trip Start Coordinate:', startCoordinate);
+      return startCoordinate;
+    }
+    console.log('No trips available.');
+    return undefined;
+  }
+  
+  getTripEndCoordinate(): { lat: number; lng: number } | undefined {
+    const trips = this.getViajes();
+    if (trips.length > 0) {
+      const endCoordinate = this.extractLatAndLng(trips[0].endcoordinate);
+      console.log('Trip End Coordinate:', endCoordinate);
+      return endCoordinate;
+    }
+    console.log('No trips available.');
+    return undefined;
+  }
+  
+  
+
+  private extractLatAndLng(coordinateString: string): { lat: number; lng: number } | undefined {
+    const [latStr, lngStr] = coordinateString.split(',').map(str => str.trim());
+    const lat = parseFloat(latStr);
+    const lng = parseFloat(lngStr);
+    if (!isNaN(lat) && !isNaN(lng)) {
+      return { lat, lng };
+    } else {
+      console.error('Error al convertir las coordenadas:', coordinateString);
+      return undefined;
+    }
+  }
+  
+  
+  setTripStartCoordinate(coordinate: { lat: number, lng: number }) {
+    this.tripStartCoordinate = coordinate;
+  }
+  
+  setTripEndCoordinate(coordinate: { lat: number, lng: number }) {
+    this.tripEndCoordinate = coordinate;
   }
 
   logout() {

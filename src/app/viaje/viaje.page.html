@@ -1,4 +1,5 @@
 <ion-header [translucent]="true">
+  <script src="https://unpkg.com/opencage-api-client"></script>
   <ion-toolbar class="techo">
     <div class="headera">
       <div class="titulo">
@@ -39,9 +40,22 @@
 <ion-content >
   <div class="adminPart" *ngIf="!isUser()">
     <div class="crear-viaje">
+      
       <ion-item>
-        <ion-label position="floating">Dirección</ion-label>
-        <ion-input [(ngModel)]="direccion"></ion-input>
+        <ion-select [(ngModel)]="tipoOrigen" (ionChange)="onTipoOrigenChange()">
+          <ion-select-option value="posicionActual">Direccion Actual</ion-select-option>
+          <ion-select-option value="ingresarDireccion">Ingresar dirección debajo</ion-select-option>
+        </ion-select>
+      </ion-item>
+      
+      <ion-item *ngIf="tipoOrigen === 'ingresarDireccion'">
+        <ion-label position="floating">Dirección de partida</ion-label>
+        <ion-input [(ngModel)]="direccionOrigen"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Dirección de destino</ion-label>
+        <ion-input [(ngModel)]="direccionDestino"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Hora de Salida</ion-label>
